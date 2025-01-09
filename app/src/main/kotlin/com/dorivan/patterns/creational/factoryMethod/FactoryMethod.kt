@@ -1,5 +1,10 @@
 package com.dorivan.patterns.creational.factoryMethod
 
+/*
+It's a "Creator" interface that has a factory method. This factory method returns a "product" that is a concrete implementation
+of product interface. Each creator implementation can override the factory method and return a concrete product
+ */
+
 enum class Providers { ADYEN, PAGARME }
 enum class PaymentType {PIX, BANKSLIP}
 
@@ -23,6 +28,7 @@ class Pagarme: Provider {
 
 // Creator interface, declaring factory method (in this case getProvider())
 interface PaymentFactory {
+    // factory Method. Each implementation can return any Provider Type
     fun getProvider(): Provider
     fun createPayment(): String
 }
