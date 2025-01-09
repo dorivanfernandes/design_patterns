@@ -1,7 +1,8 @@
 package com.dorivan.patterns.creational.singleton
 
 /*
-guarantee that class have just one instance and this instance exists globally
+Guarantee that class have just one instance and this instance exists globally.
+The singleton must have a private constructor
  */
 
 // The Object is the recommended structure to create a singleton in Kotlin, but I make as class to learn the concept
