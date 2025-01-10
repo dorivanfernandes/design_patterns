@@ -1,34 +1,79 @@
 package com.dorivan.patterns.creational.abstractMethod
 
-enum class Providers { BRADESCO, ITAU }
+import kotlin.random.Random
 
-interface Provider {
-    val type: Providers
-    fun pix()
-    fun card()
-    fun bankslip()
+/*
+- It's about family of "product". When one item has possible variations
+
+In the example below the product is Header, Body and Footer and their families are English and Portuguese
+ */
+
+
+// Interface to products
+interface DocumentHeader { fun content(): String }
+interface DocumentBody { fun content(): String }
+interface DocumentFooter { fun content(): String }
+
+// concrete implementation to each variation/family of the product
+class PortugueseHeader: DocumentHeader {
+    override fun content(): String = "Eu sou o cabeçalho em português"
+}
+class EnglishHeader: DocumentHeader {
+    override fun content(): String = "I'm English header"
+}
+class PortugueseBody: DocumentBody {
+    override fun content(): String = "Eu sou o corpo em português"
+}
+class EnglishBody: DocumentBody {
+    override fun content(): String = "I'm English body"
+}
+class PortugueseFooter: DocumentFooter {
+    override fun content(): String = "Eu sou o rodapé em português"
+}
+class EnglishFooter: DocumentFooter {
+    override fun content(): String = "I'm English footer"
 }
 
-class Bradesco: Provider {
-    override val type: Providers = Providers.BRADESCO
 
-    override fun pix() = println("Creating $type pix")
-
-    override fun card() = println("Creating $type card")
-
-    override fun bankslip() = println("Creating $type bankslip")
+// Same idea of factory method. Factory methods... one to each product
+interface DocumentFactory {
+    fun createHeader() : DocumentHeader
+    fun createBody() : DocumentBody
+    fun createFooter() : DocumentFooter
 }
 
-class Itau: Provider {
-    override val type: Providers = Providers.ITAU
-
-    override fun pix() = println("Creating $type pix")
-
-    override fun card() = println("Creating $type card")
-
-    override fun bankslip() = println("Creating $type bankslip")
+// Factory methods implementation. Implements it to each family
+class PortugueseDocumentFactory : DocumentFactory {
+    override fun createHeader() = PortugueseHeader()
+    override fun createBody() = PortugueseBody()
+    override fun createFooter() = PortugueseFooter()
+}
+class EnglishDocumentFactory : DocumentFactory {
+    override fun createHeader() = EnglishHeader()
+    override fun createBody() = EnglishBody()
+    override fun createFooter() = EnglishFooter()
 }
 
-interface ProviderFactory {
-    
+// Generic class do create logic from interfaces. Abstract to no stay in the main
+class ApplicationDocumentFactory(
+    private val factory: DocumentFactory
+) {
+    fun createFullDocument() {
+        println(factory.createHeader().content())
+        println(factory.createBody().content())
+        println(factory.createFooter().content())
+    }
+}
+
+// When the app starts should have a way to choose the option
+fun main() {
+    val option = Random.nextInt(1, 3)
+
+    val factory = when(option) {
+        1 -> PortugueseDocumentFactory()
+        2 -> EnglishDocumentFactory()
+        else -> throw NotImplementedError()
+    }
+
+    ApplicationDocumentFactory(factory).createFullDocument()
 }
