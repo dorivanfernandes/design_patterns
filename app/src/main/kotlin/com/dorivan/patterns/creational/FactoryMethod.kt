@@ -1,4 +1,4 @@
-package com.dorivan.patterns.creational.factoryMethod
+package com.dorivan.patterns.creational
 
 /*
 It's a "Creator" interface that has a factory method. This factory method returns a "product" that is a concrete implementation

@@ -1,4 +1,4 @@
-package com.dorivan.patterns.creational.singleton
+package com.dorivan.patterns.creational
 
 /*
 Guarantee that class have just one instance and this instance exists globally.

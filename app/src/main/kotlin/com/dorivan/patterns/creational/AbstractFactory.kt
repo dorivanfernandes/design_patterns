@@ -1,4 +1,4 @@
-package com.dorivan.patterns.creational.abstractMethod
+package com.dorivan.patterns.creational
 
 import kotlin.random.Random
 
